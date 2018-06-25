@@ -16,6 +16,7 @@
 
 int servfd = -1;
 int servport = 8000; //default
+static char index[1 << 20];
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
@@ -36,42 +37,13 @@ void server(int servport, char *dir) {
     struct sockaddr_in client_addr;
     socklen_t length = sizeof(client_addr);
     int conn = -1;
-
-    DIR *site = NULL;
-    struct dirent *entry;
-    char *pwd = get_current_dir_name();
-    char path[128];
-    sscanf(dir, "./%s", path);
-    assert((site = opendir(path)) != NULL);
-    static char index[1 << 20];
-    int filesize;
-    while((entry = readdir(site)) != NULL) {
-        if(strcmp(entry->d_name, "index.html") == 0) {
-            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
-            FILE *fp = fopen(pwd, "r");
-            fseek(fp, 0L, SEEK_END);
-            filesize = ftell(fp);
-            fseek(fp, 0L, SEEK_SET);
-            assert(fread(index, 1, filesize, fp) > 0);
-        }
-        if(entry->d_type & DT_DIR) {
-            if(strcmp(entry->d_name, ".") == 0
-                || strcmp(entry->d_name, "..") == 0)
-                continue;
-        }
-    }
     
-    listen(servfd, 100);
-//    static char response[1 << 20];
+    listen(servfd, 50);
+    static char response[1 << 20];
 //    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
-//    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
+    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-		const char response[] = 
-			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 11\r\n"
-			"\r\n"
-			"Fuck You Elton\n";
 		int len = write(conn, response, sizeof(response));
 		close(conn);
 
@@ -95,6 +67,28 @@ int main(int argc, char *argv[]) {
         printf("\033[1;33mSample: ./httpd --port 8000 ./site\033[0m\n");
         exit(EXIT_SUCCESS);
     }
+    DIR *site = NULL;
+    struct dirent *entry;
+    char *pwd = get_current_dir_name();
+    char path[128];
+    sscanf(dir, "./%s", path);
+    assert((site = opendir(path)) != NULL);
+    while((entry = readdir(site)) != NULL) {
+        if(strcmp(entry->d_name, "index.html") == 0) {
+            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
+            FILE *fp = fopen(pwd, "r");
+            fseek(fp, 0L, SEEK_END);
+            filesize = ftell(fp);
+            fseek(fp, 0L, SEEK_SET);
+            assert(fread(index, 1, filesize, fp) > 0);
+        }
+        if(entry->d_type & DT_DIR) {
+            if(strcmp(entry->d_name, ".") == 0
+                || strcmp(entry->d_name, "..") == 0)
+                continue;
+        }
+    }
+
     if(argc >= 2) {
         if( (strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) && argc == 4) {
