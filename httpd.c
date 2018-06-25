@@ -38,15 +38,30 @@ void server(int servport, char *dir) {
     int conn = -1;
     
     listen(servfd, 50);
-//    static char response[1 << 20];
-//    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 11\r\n"
 			"\r\n"
-			"Fuck You Elton\n";
+			"<html> \
+            <head> \
+            <title>Hello World</title> \
+            </head> \
+            <body> \
+            <center> \
+            <h1> OSMINILAB </h1> \
+            <br> \
+            <hr> \
+            <font size = 2> \
+            Welcome to HTTPD! \
+            </font> \
+            </hr> \
+            </br> \
+            </center> \
+            </body> \
+            </html>\r\n";
+            
 
 		int len = write(conn, response, sizeof(response));
 		close(conn);
@@ -77,13 +92,13 @@ int main(int argc, char *argv[]) {
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
-/*            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
+            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
             assert(fread(html, 1, filesize, fp) > 0);
-            fclose(fp);*/
+            fclose(fp);
         }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
