@@ -25,10 +25,6 @@ void sigint_handler(int signum) {
     close(servfd);
     exit(EXIT_SUCCESS);
 }
-/*
-char *parseurl(char *url, char *dir) {
-   return response;
-}*/
 
 void server(int servport, char *dir) {
     servfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -53,40 +49,41 @@ void server(int servport, char *dir) {
         char method[BUFSIZE], url[BUFSIZE];
         sscanf(request, "%s %s", method, url);
         printf("%s %s\n", method, url);
-//       char *response = parseurl(url, dir);
-    char html[BUFSIZE];
-    char response[BUFSIZE];
-    char pwd[BUFSIZE];
-    if(strcmp(url, "/") == 0)
-        sprintf(pwd, "%s/index.html", dir);
-    else sprintf(pwd, "%s%s", dir, url);
-    printf("%s\n", pwd);
-    int size;
-    int fd = open(pwd, O_RDONLY);
-    if(fd == -1) {
-        sprintf(response, 
-			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 350\r\n"
-			"\r\n"
-			"<html> \
-            <head> \
-            <title>Hello World</title> \
-            </head> \
-            <body> \
-            <center> \
-            <hr> \
-            <h1> OSMINILAB </h1> \
-            <font size = 2> \
-            Welcome to HTTPD! \
-            <br></br> \
-            161240003 \
-            <br></br> \
-            CHEN Cheng \
-            </font> \
-            </center> \
-            </body> \
-            </html>\r\n");
-        }
+    
+        char html[BUFSIZE];
+        char response[BUFSIZE];
+        char pwd[BUFSIZE];
+        if(strcmp(url, "/") == 0)
+            sprintf(pwd, "%s/index.html", dir);
+        else sprintf(pwd, "%s%s", dir, url);
+
+        int size;
+        int fd = open(pwd, O_RDONLY);
+        if(fd == -1) {
+            sprintf(response, 
+			    "HTTP/1.1 200 OK\r\n"
+			    "Content-Length: 350\r\n"
+			    "\r\n"
+			    "<html> \
+                <head> \
+                <title>Hello World</title> \
+                </head> \
+                <body> \
+                <center> \
+                <hr> \
+                <h1> OSMINILAB </h1> \
+                <h2> 404 </h2> \
+                <font size = 2> \
+                Welcome to HTTPD! \
+                <br></br> \
+                161240003 \
+                <br></br> \
+                CHEN Cheng \
+                </font> \
+                </center> \
+                </body> \
+                </html>\r\n");
+            }
         else {
             size = lseek(fd, 0, SEEK_END);
             lseek(fd, 0, SEEK_SET);
@@ -96,8 +93,7 @@ void server(int servport, char *dir) {
 			    "Content-Length: %d\r\n"
 			    "\r\n", size);
         }
- 
-		assert( write(conn, response, strlen(response)) > 0);
+ 		assert( write(conn, response, strlen(response)) > 0);
         assert( write(conn, html, size) > 0);
 		close(conn);
     }
