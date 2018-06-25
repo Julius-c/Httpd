@@ -49,8 +49,10 @@ void server(int servport, char *dir) {
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
-            printf("%d\n", filesize);
-            }
+            fseek(fp, 0L, SEEK_SET);
+            static char index[1 << 20];
+            fread(index, 1, filesize, fp);
+        }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
                 || strcmp(entry->d_name, "..") == 0)
