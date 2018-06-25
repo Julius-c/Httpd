@@ -39,7 +39,6 @@ char *parseurl(char *url, char *dir) {
         }
     }
 
-
     char *token = strtok(url, "/");
     return token;
 }
@@ -66,9 +65,9 @@ void server(int servport, char *dir) {
         request[recb] = '\0';
         char method[BUFSIZE], url[BUFSIZE], pro[BUFSIZE];
         sscanf(request, "%s %s %s", method, url, pro);
-//        char *response = parseurl(url, dir);
+        char *response = parseurl(url, dir);
         printf("%s %s %s\n", method, url, pro);
-        printf("%s\n", request);
+        printf("%s\n", response);
         
 		const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
