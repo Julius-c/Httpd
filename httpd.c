@@ -29,7 +29,7 @@ void sigint_handler(int signum) {
 int is_exist(char *token, char *dir) {
     DIR *site = NULL;
     struct dirent *entry;
-            printf("%s\n", entry->d_name);
+            printf("%s\n", dir);
 
     assert((site = opendir(dir)) != NULL);
     while((entry = readdir(site)) != NULL) {
