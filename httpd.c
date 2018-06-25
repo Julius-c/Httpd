@@ -31,6 +31,11 @@ char *parseurl(char *url, char *dir) {
     char pwd[BUFSIZE];
     sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
+    int fd = open(pwd, O_RDONLY);
+    if(fd == -1)
+        printf("NO FILE\n");
+    else
+        printf("exist\n");
     return pwd;
 }
 
