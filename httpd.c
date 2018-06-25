@@ -42,7 +42,7 @@ void server(int servport, char *dir) {
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 11\r\n"
+			"Content-Length: 1000\r\n"
 			"\r\n"
 			"<html> \
             <head> \
@@ -63,7 +63,7 @@ void server(int servport, char *dir) {
             </html>\r\n";
             
 
-		int len = write(conn, response, sizeof(response));
+		assert( write(conn, response, sizeof(response)) > 0);
 		close(conn);
     }
 }
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
     
     DIR *site = NULL;
     struct dirent *entry;
-    char *pwd = get_current_dir_name();
+//    char *pwd = get_current_dir_name();
     char path[128];
     sscanf(argv[3], "./%s", path);
     assert((site = opendir(path)) != NULL);
