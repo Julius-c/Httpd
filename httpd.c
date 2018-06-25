@@ -45,7 +45,7 @@ void server(int servport, char *dir) {
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
-            int fd = open("index.html", "w");
+            int fd = open("index.html", O_RDONLY);
         }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
