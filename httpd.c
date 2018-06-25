@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
         printf("\033[1;33mSample: ./httpd --port 8000 ./site\033[0m\n");
         exit(EXIT_SUCCESS);
     }
-    if(argc > 2) {
+    if(argc >= 2) {
         if( strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) {
             assert(argc == 4);
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
             printf("-p %d\n", PORT);
         }else if(strcmp(argv[1], "-h") == 0 ||
                  strcmp(argv[1], "--help") == 0) {
-            assert(argc == 3);
+            assert(argc == 2);
             printf("-h\n");
         }
     }
