@@ -31,11 +31,12 @@ void server(int servport, char *dir) {
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(servport);
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
-    listen(servfd, 50);
+    assert(bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != -1);
+
     struct sockaddr_in client_addr;
     socklen_t length = sizeof(client_addr);
     int conn = -1;
+
     DIR *site = NULL;
     struct dirent *entry;
     char *pwd = get_current_dir_name();
@@ -44,7 +45,6 @@ void server(int servport, char *dir) {
     assert((site = opendir(path)) != NULL);
     static char index[1 << 20];
     int filesize;
-
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
@@ -60,13 +60,24 @@ void server(int servport, char *dir) {
                 continue;
         }
     }
-    static char response[1 << 20];
+    
+    listen(servfd, 100);
+//    static char response[1 << 20];
 //    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
-    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
+//    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-        assert(write(conn, response, sizeof(response)) > 0);
-        close(conn);
+		const char response[] = 
+			"HTTP/1.1 200 OK\r\n"
+			"Content-Length: 11\r\n"
+			"\r\n"
+			"Fuck You Elton\n";
+		[[maybe_unused]]
+		int len = write(conn, response, sizeof(response));
+		close(conn);
+
+//         assert(write(conn, response, sizeof(response)) > 0);
+//        close(conn);
     }
 }
 
