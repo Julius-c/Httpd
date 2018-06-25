@@ -61,6 +61,7 @@ void server(int servport, char *dir) {
         sprintf(pwd, "%s/index.html", dir);
     else sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
+    int size;
     int fd = open(pwd, O_RDONLY);
     if(fd == -1) {
         sprintf(response, 
@@ -87,7 +88,7 @@ void server(int servport, char *dir) {
             </html>\r\n");
         }
         else {
-            int size = lseek(fd, 0, SEEK_END);
+            size = lseek(fd, 0, SEEK_END);
             lseek(fd, 0, SEEK_SET);
             read(fd, html, size);
             sprintf(response,
