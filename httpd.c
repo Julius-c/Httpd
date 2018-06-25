@@ -42,17 +42,16 @@ void server(int servport, char *dir) {
     char path[128];
     sscanf(dir, "./%s", path);
     assert((site = opendir(path)) != NULL);
+    static char index[1 << 20];
+
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
-            printf("%s\n", pwd);
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
-            static char index[1 << 20];
-            fread(index, 1, filesize, fp);
-            printf("%s", index);
+            assert(fread(index, 1, filesize, fp) > 0);
         }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
@@ -63,9 +62,8 @@ void server(int servport, char *dir) {
     const char response[] = 
         "HTTP/1.1 200 OK\r\n"
         "Content-Length: 13\r\n"
-        "\r\n"
-        "Hello World!\n";
-
+        "\r\n";
+    strcat(response, index);
 
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
