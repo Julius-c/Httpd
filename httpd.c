@@ -87,7 +87,12 @@ void server(int servport, char *dir) {
             </html>\r\n");
     }
     else {
-        read(fd, response, BUFSIZE);
+        int size = lseek(fd, 0, SEEK_END);
+        read(fd, response, size);
+        sprintf(response,
+                "HTTP/1.1 200 OK\r\n"
+			    "Content-Length: %d\r\n"
+			    "\r\n%s", size, reponse);
     }
  
 		assert( write(conn, response, sizeof(response)) > 0);
