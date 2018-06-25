@@ -30,7 +30,7 @@ char *parseurl(char *url, char *dir) {
     char response[BUFSIZE];
     char pwd[BUFSIZE];
     if(strcmp(url, "/") == 0)
-        sprintf(pwd, "%sindex.html", dir);
+        sprintf(pwd, "%s/index.html", dir);
     else sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
     int fd = open(pwd, O_RDONLY);
