@@ -26,42 +26,11 @@ void sigint_handler(int signum) {
     exit(EXIT_SUCCESS);
 }
 
-int is_exist(char *token, char *dir) {
-    DIR *site = NULL;
-    struct dirent *entry;
-    printf("%s\n", dir);
-    if(!site) closedir(site);
-    assert((site = opendir(dir)) != NULL);
-    while((entry = readdir(site)) != NULL) {
-        if(strcmp(entry->d_name, ".") == 0)
-            continue;
-        if(strcmp(token, entry->d_name) == 0) {
-            if( !(entry->d_type & DT_DIR) )
-                return true;
-        }
-        if(entry->d_type & DT_DIR) {
-            return is_exist(token, entry->d_name);
-        }
-    }
-    if(!site) closedir(site);
-    return false;
-}
-
 char *parseurl(char *url, char *dir) {
-    char *pwd = get_current_dir_name();
     char response[BUFSIZE];
-
-    char *token = strtok(url, "/");
-    while(token != NULL) {
-        char *path = strtok(NULL, "/");
-        if( path == NULL) break;
-        else token = path;
-    }
-    printf("%s\n", token);
-    if(is_exist(token, dir)) {
-        sprintf(pwd, "%s/%s/%s", pwd, dir, token);
-        printf("%s\n", pwd);
-    }
+    char *pwd;
+    sprintf(pwd, "%s%s", dir, url);
+    printf("%s\n", pwd);
     return token;
 }
 
