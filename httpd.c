@@ -62,7 +62,7 @@ void server(int servport, char *dir) {
         if(fd == -1) {
             sprintf(response, 
 			    "HTTP/1.1 200 OK\r\n"
-			    "Content-Length: 350\r\n"
+			    "Content-Length: 400\r\n"
 			    "\r\n"
 			    "<html> \
                 <head> \
