@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <assert.h>
 
-unsigned long PORT;
+unsigned long PORT = 8000; //default
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
@@ -12,6 +12,17 @@ int main(int argc, char *argv[]) {
         printf("\033[1;33mSample: ./httpd --port 8000 ./site\033[0m\n");
         exit(EXIT_SUCCESS);
     }
-    if()
+    if(argc > 2) {
+        if( strcmp(argv[1], "-p") == 0 ||
+            strcmp(argv[1], "--port") == 0) {
+            assert(argc == 4);
+            PORT = atoi(argv[2]);
+            printf("-p %d\n", PORT);
+        }else if(strcmp(argv[1], "-h") == 0 ||
+                 strcmp(argv[1], "--help") == 0) {
+            assert(argc == 3);
+            printf("-h\n");
+        }
+    }
     return 0;
 }
