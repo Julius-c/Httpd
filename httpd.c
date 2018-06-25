@@ -38,7 +38,7 @@ void server(int servport, char *dir) {
     int conn = -1;
     DIR *site = NULL;
     struct dirent *entry;
-    char buff[128] = get_current_dir_name();
+    char* buff = get_current_dir_name();
     printf("%s\n", buff);
     char path[128];
     sscanf(dir, "./%s", path);
