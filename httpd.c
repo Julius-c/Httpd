@@ -49,7 +49,7 @@ char *parseurl(char *url, char *dir) {
 
     char *token = strtok(url, "/");
     while(token != NULL) {
-        char *path = strtok(url, "/");
+        char *path = strtok(NULL, "/");
         if( path == NULL) break;
         else token = path;
     }
