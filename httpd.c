@@ -46,7 +46,7 @@ void server(int servport, char *dir) {
 			"\r\n"
 			"<html> \
             <head> \
-            <title>Hello World</title> \
+            <title>Hello</title> \
             </head> \
             <body> \
             <body bgcolor = \"yellow\"> \
