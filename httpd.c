@@ -49,6 +49,7 @@ char *parseurl(char *url, char *dir) {
 
     char *token = strtok(url, "/");
     while(token != NULL) {
+        printf("%s\n", token);
         token = strtok(NULL, "/");
     }
     assert(token == NULL);
