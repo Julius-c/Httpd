@@ -3,10 +3,15 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <dirent.h>
 
 int port = 8000; //default
 void server(int port, char *dir) {
-    printf("%d %s\n", port, dir);
+   DIR *site = NULL;
+   struct dirent *entry;
+   char *path = NULL;
+   sscanf(dir, "%[1-9a-z]", path);
+   printf("%s\n", path);
 }
 
 static struct{
