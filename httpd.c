@@ -39,7 +39,6 @@ void server(int servport, char *dir) {
     DIR *site = NULL;
     struct dirent *entry;
     char *pwd = get_current_dir_name();
-    printf("%s\n", buff);
     char path[128];
     sscanf(dir, "./%s", path);
     assert((site = opendir(path)) != NULL);
