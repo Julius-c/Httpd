@@ -25,10 +25,10 @@ void sigint_handler(int signum) {
     close(servfd);
     exit(EXIT_SUCCESS);
 }
-
+/*
 char *parseurl(char *url, char *dir) {
    return response;
-}
+}*/
 
 void server(int servport, char *dir) {
     servfd = socket(AF_INET, SOCK_STREAM, 0);
