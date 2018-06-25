@@ -40,7 +40,7 @@ char *parseurl(char *url, char *dir) {
     }
 
 */
-    char *token = strtok(url, '/');
+    char *token = strtok(url, "/");
     return token;
 }
 
