@@ -10,6 +10,7 @@ void server(int port, char *dir) {
    DIR *site = NULL;
    struct dirent *entry;
    char path[512];
+   printf("%d\n", strlen(dir));
    dir[strlen(dir) - 1] = '\0';
    sscanf(dir, "./%s/", path);
    printf("%s %s\n", dir, path);
