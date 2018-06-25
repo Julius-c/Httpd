@@ -64,10 +64,10 @@ void server(int servport, char *dir) {
         char request[BUFSIZE];
         int recb = recv(conn, request, BUFSIZE, 0);
         request[recb] = '\0';
-        char method[BUFSIZE], url[BUFSIZE];
-        sscanf(request, "%s %s", method, url);
+        char method[BUFSIZE], url[BUFSIZE], pro[BUFSIZE];
+        sscanf(request, "%s %s %s", method, url, pro);
         char *response = parseurl(url, dir);
-        printf("%s %s %s\n %s\n", method, url, response, request);
+        printf("%s %s %s\n %s\n", method, url, response, pro);
         
 		const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
