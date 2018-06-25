@@ -38,7 +38,7 @@ void server(int servport, char *dir) {
             "HTTP/1.1 200 OK\r\n"
             "Content-Length: 11\r\n"
             "Hello World!\n";
-        write(conn, response, sizeof(response));
+        assert(write(conn, response, sizeof(response)) == sizeof(response));
         close(conn);
     }
 
