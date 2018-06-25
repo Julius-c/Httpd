@@ -61,7 +61,8 @@ void server(int servport, char *dir) {
         }
     }
     static char response[1 << 20];
-    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
+//    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
+    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
         assert(write(conn, response, sizeof(response)) > 0);
