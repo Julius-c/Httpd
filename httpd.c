@@ -31,7 +31,7 @@ char *parseurl(char *url, char *dir) {
     char *pwd;
     sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
-    return token;
+    return pwd;
 }
 
 void server(int servport, char *dir) {
