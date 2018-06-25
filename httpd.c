@@ -92,7 +92,7 @@ void server(int servport, char *dir) {
         sprintf(response,
                 "HTTP/1.1 200 OK\r\n"
 			    "Content-Length: %d\r\n"
-			    "\r\n%s", size, reponse);
+			    "\r\n%s", size, response);
     }
  
 		assert( write(conn, response, sizeof(response)) > 0);
