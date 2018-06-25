@@ -28,7 +28,7 @@ void sigint_handler(int signum) {
 
 char *parseurl(char *url, char *dir) {
     char response[BUFSIZE];
-    char *pwd;
+    char pwd[BUFSIZE];
     sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
     return pwd;
