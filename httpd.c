@@ -79,8 +79,8 @@ int main(int argc, char *argv[]) {
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
-   /*         sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
-            FILE *fp = fopen(pwd, "r");
+            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
+   /*         FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
