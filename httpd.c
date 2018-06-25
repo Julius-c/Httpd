@@ -36,9 +36,9 @@ int is_exist(char *token, char *dir) {
         if(strcmp(token, entry->d_name) == 0) {
             if( !(entry->d_type & DT_DIR) )
                 return true;
-            else
-                return is_exist(token, entry->d_name);
         }
+        if(entry->d_type & DT_DIR)
+            return is_exist(token, entry->d_name);
     }
     return false;
 }
