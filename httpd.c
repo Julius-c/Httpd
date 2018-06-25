@@ -54,6 +54,10 @@ char *parseurl(char *url, char *dir) {
         else token = path;
     }
     printf("%s\n", token);
+    if(is_exist(token, dir)) {
+        sprintf(pwd, "%s/%s/%s", pwd, dir, token);
+        printf("%s\n", pwd);
+    }
     return token;
 }
 
