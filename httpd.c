@@ -5,9 +5,18 @@
 #include <assert.h>
 
 int port = 8000; //default
-void server(int port, char *file) {
-    printf("%d %s\n", port, file);
+void server(int port, char *dir) {
+    printf("%d %s\n", port, dir);
 }
+
+static struct{
+    char *name;
+    char *discription;
+} cmd_table [] = {
+    { "--help or -h", "Display informations about all supported commands." },
+    { "--port or -p", "Set up the listening port." }
+};
+#define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
@@ -22,6 +31,8 @@ int main(int argc, char *argv[]) {
             server(port, argv[3]);
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
+            for(int i = 0; i < NR_CMD; i ++)
+                printf("\033[1;36m%s\033[0m - \033[1;45m%s\033[0m\n", cmd_table[i].name, cmd_table[i].description);
         }else{
             printf("Unknown command '%s'\n", argv[1]);
         }
