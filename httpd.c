@@ -34,7 +34,9 @@ int main(int argc, char *argv[]) {
         if( (strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) && argc == 4) {
             port = atoi(argv[2]);
-            server(port, argv[3]);
+            char dir[512];
+            strcpy(dir, argv[3]);
+            server(port, dir);
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
             for(int i = 0; i < NR_CMD; i ++)
