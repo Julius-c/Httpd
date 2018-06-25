@@ -59,7 +59,7 @@ void server(int servport, char *dir) {
                 continue;
         }
     }
-    const char response[] = 
+    char response[] = 
         "HTTP/1.1 200 OK\r\n"
         "Content-Length: 13\r\n"
         "\r\n";
