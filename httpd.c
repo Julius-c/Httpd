@@ -51,7 +51,7 @@ char *parseurl(char *url, char *dir) {
     while(token != NULL) {
         char *path = strtok(url, "/");
         if( path == NULL) break;
-        token = path;
+        else token = path;
     }
     printf("%s\n", token);
     return token;
