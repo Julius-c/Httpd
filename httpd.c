@@ -25,7 +25,7 @@ void sigint_handler(int signum) {
 }
 
 char *parseurl(char *url, char *dir) {
-/*    DIR *site = NULL;
+    DIR *site = NULL;
     struct dirent *entry;
     char *pwd = get_current_dir_name();
     char path[128];
@@ -39,7 +39,7 @@ char *parseurl(char *url, char *dir) {
         }
     }
 
-*/
+
     char *token = strtok(url, "/");
     return token;
 }
