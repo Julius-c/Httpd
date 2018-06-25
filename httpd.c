@@ -31,7 +31,7 @@ int is_exist(char *token, char *dir) {
     struct dirent *entry;
     assert((site = opendir(dir)) != NULL);
     while((entry = readdir(site)) != NULL) {
-        if(strcmp(entry->name, ".") == 0)
+        if(strcmp(entry->d_name, ".") == 0)
             continue;
         if(strcmp(token, entry->d_name) == 0) {
             if( !(entry->d_type & DT_DIR) )
