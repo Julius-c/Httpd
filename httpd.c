@@ -27,7 +27,7 @@ void server(int servport, char *dir) {
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(servport);
-    servaddr.sin_addr.s_addr = htonl(INADD_ANY);
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(servfd, 50);
     struct sockaddr_in client_addr;
