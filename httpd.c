@@ -54,6 +54,7 @@ void server(int servport, char *dir) {
         sscanf(request, "%s %s", method, url);
         printf("%s %s\n", method, url);
 //       char *response = parseurl(url, dir);
+    char html[BUFSIZE];
     char response[BUFSIZE];
     char pwd[BUFSIZE];
     if(strcmp(url, "/") == 0)
@@ -89,11 +90,11 @@ void server(int servport, char *dir) {
     else {
         int size = lseek(fd, 0, SEEK_END);
         lseek(fd, 0, SEEK_SET);
-        read(fd, response, size);
+        read(fd, html, size);
         sprintf(response,
                 "HTTP/1.1 200 OK\r\n"
 			    "Content-Length: %d\r\n"
-			    "\r\n%s", size, response);
+			    "\r\n%s", size, html);
     }
  
 		assert( write(conn, response, sizeof(response)) > 0);
