@@ -94,7 +94,8 @@ void server(int servport, char *dir) {
 			    "\r\n", size);
         }
  		assert( send(conn, response, strlen(response), 0) > 0);
-        assert( send(conn, html, size, 0) > 0);
+        if(size > 0)
+            assert( send(conn, html, size, 0) > 0);
 		close(conn);
     }
 }
