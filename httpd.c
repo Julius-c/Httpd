@@ -72,7 +72,6 @@ void server(int servport, char *dir) {
 			"Content-Length: 11\r\n"
 			"\r\n"
 			"Fuck You Elton\n";
-		[[maybe_unused]]
 		int len = write(conn, response, sizeof(response));
 		close(conn);
 
