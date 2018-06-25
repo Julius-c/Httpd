@@ -42,7 +42,7 @@ void server(int servport, char *dir) {
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 300\r\n"
+			"Content-Length: 350\r\n"
 			"\r\n"
 			"<html> \
             <head> \
