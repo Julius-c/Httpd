@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <assert.h>
 
-unsigned long PORT = 8000; //default
+int PORT = 8000; //default
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
