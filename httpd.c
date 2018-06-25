@@ -67,7 +67,7 @@ void server(int servport, char *dir) {
         sscanf(request, "%s %s %s", method, url, pro);
         char *response = parseurl(url, dir);
         printf("%s %s %s\n", method, url, pro);
-        printf("%s\n", response);
+        printf("%s\n %s\n", response, request);
         
 		const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
