@@ -90,7 +90,7 @@ void server(int servport, char *dir) {
         printf("%s %s\n", method, url);
         char *response = parseurl(url, dir);
 
-		assert( write(conn, respe, sizeof(respe)) > 0);
+		assert( write(conn, response, sizeof(response)) > 0);
 		close(conn);
     }
 }
