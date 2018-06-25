@@ -57,7 +57,7 @@ void server(int servport, char *dir) {
             sprintf(pwd, "%s/index.html", dir);
         else sprintf(pwd, "%s%s", dir, url);
 
-        int size;
+        int size = 0;
         int fd = open(pwd, O_RDONLY);
         if(fd == -1) {
             sprintf(response, 
