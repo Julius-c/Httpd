@@ -34,11 +34,35 @@ char *parseurl(char *url, char *dir) {
     else sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
     int fd = open(pwd, O_RDONLY);
-    if(fd == -1)
+    if(fd == -1) {
         printf("NO FILE\n");
-    else
-        printf("exist\n");
-    return pwd;
+        response[] = 
+			"HTTP/1.1 200 OK\r\n"
+			"Content-Length: 350\r\n"
+			"\r\n"
+			"<html> \
+            <head> \
+            <title>Hello World</title> \
+            </head> \
+            <body> \
+            <center> \
+            <hr> \
+            <h1> OSMINILAB </h1> \
+            <font size = 2> \
+            Welcome to HTTPD! \
+            <br></br> \
+            161240003 \
+            <br></br> \
+            CHEN Cheng \
+            </font> \
+            </center> \
+            </body> \
+            </html>\r\n";
+    }
+    else {
+        read(fd, response, BUFSIZE);
+    }
+    return response;
 }
 
 void server(int servport, char *dir) {
@@ -65,30 +89,6 @@ void server(int servport, char *dir) {
         sscanf(request, "%s %s", method, url);
         printf("%s %s\n", method, url);
         char *response = parseurl(url, dir);
-
-        const char respe[] = 
-			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 350\r\n"
-			"\r\n"
-			"<html> \
-            <head> \
-            <title>Hello World</title> \
-            </head> \
-            <body> \
-            <center> \
-            <hr> \
-            <h1> OSMINILAB </h1> \
-            <font size = 2> \
-            Welcome to HTTPD! \
-            <br></br> \
-            161240003 \
-            <br></br> \
-            CHEN Cheng \
-            </font> \
-            </center> \
-            </body> \
-            </html>\r\n";
-            
 
 		assert( write(conn, respe, sizeof(respe)) > 0);
 		close(conn);
