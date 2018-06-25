@@ -37,8 +37,10 @@ int is_exist(char *token, char *dir) {
             if( !(entry->d_type & DT_DIR) )
                 return true;
         }
-        if(entry->d_type & DT_DIR)
+        if(entry->d_type & DT_DIR) {
+            printf("%s\n", entry->d_name);
             return is_exist(token, entry->d_name);
+        }
     }
     return false;
 }
