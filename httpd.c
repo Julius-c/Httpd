@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     struct dirent *entry;
     char *pwd = get_current_dir_name();
     char path[128];
-    sscanf(dir, "./%s", path);
+    sscanf(argv[3], "./%s", path);
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
