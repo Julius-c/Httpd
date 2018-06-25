@@ -40,6 +40,11 @@ void server(int servport, char *dir) {
     listen(servfd, 50);
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
+        char request[100];
+        int recb = recv(conn, request, 100, 0);
+        request[recb] = '\0';
+        printf("Header %s\n", request);
+
 		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 350\r\n"
