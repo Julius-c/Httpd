@@ -79,13 +79,13 @@ int main(int argc, char *argv[]) {
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
-            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
+   /*         sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
             assert(fread(html, 1, filesize, fp) > 0);
-            fclose(fp);
+            fclose(fp);*/
         }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
