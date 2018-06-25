@@ -68,7 +68,7 @@ void server(int servport, char *dir) {
         request[recb] = '\0';
         char method[BUFSIZE], url[BUFSIZE];
         sscanf(request, "%s %s", method, url);
-//        char *response = parseurl(url, dir);
+        char *response = parseurl(url, dir);
 //        printf("%s %s\n", method, url);
 
         const char respe[] = 
