@@ -9,7 +9,7 @@ int port = 8000; //default
 void server(int port, char *dir) {
    DIR *site = NULL;
    struct dirent *entry;
-   char path[10];
+   char path[512];
    sscanf(dir, "%[1-9a-z]", path);
    printf("%s %s\n", dir, path);
 }
