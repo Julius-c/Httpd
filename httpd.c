@@ -76,8 +76,7 @@ void server(int servport, char *dir) {
       </center>
     </div>
   </body>
-</html>
-");
+</html>");
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 /*		const char response[] = 
