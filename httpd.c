@@ -63,7 +63,6 @@ void server(int servport, char *dir) {
     printf("%s\n", pwd);
     int fd = open(pwd, O_RDONLY);
     if(fd == -1) {
-        printf("NO FILE\n");
         sprintf(response, 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 350\r\n"
@@ -86,19 +85,19 @@ void server(int servport, char *dir) {
             </center> \
             </body> \
             </html>\r\n");
-    }
-    else {
-        int size = lseek(fd, 0, SEEK_END);
-        lseek(fd, 0, SEEK_SET);
-        read(fd, html, size);
-        sprintf(response,
+        }
+        else {
+            int size = lseek(fd, 0, SEEK_END);
+            lseek(fd, 0, SEEK_SET);
+            read(fd, html, size);
+            sprintf(response,
                 "HTTP/1.1 200 OK\r\n"
 			    "Content-Length: %d\r\n"
 			    "\r\n", size);
-    }
+        }
  
-		assert( write(conn, response, sizeof(response)) > 0);
-        assert( write(conn, html, sizeof(html)) > 0);
+		assert( write(conn, response, strlen(response)) > 0);
+        assert( write(conn, html, size) > 0);
 		close(conn);
     }
 }
