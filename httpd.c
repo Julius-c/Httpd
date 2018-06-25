@@ -39,44 +39,45 @@ void server(int servport, char *dir) {
     int conn = -1;
     
     listen(servfd, 50);
-    static char response[1 << 20];
+//    static char response[1 << 20];
 //    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
-    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\n<html>
-  <Head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="static/bootstrap.min.css"/>
-    <link rel="stylesheet" href="static/wiki.css"/>
-    <title>Example Site</title>
-  </Head>
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-header">
-        <div class="navbar-brand">
-          <a href="/">Example Site</a>
-        </div>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-left"> 
-          <li><a href="about.html">关于我们</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <center>
-      <div class="article-container">
-        <div class="article">
-          <h1>It Works!</h1>
-          <p>如果你能正确看到这段文字，说明浏览器工作正常。</p>
-        </div>
-      </div>
-    </center>
-
-    <div class="footer-bottom">
-      <center>
-      </center>
-    </div>
-  </body>
-</html>");
+const response[] =  "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\n"
+"<html>"
+"  <Head>"
+"    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">"
+"    <link rel="stylesheet" href="static/bootstrap.min.css"/>"
+"    <link rel="stylesheet" href="static/wiki.css"/> \
+    <title>Example Site</title> \
+  </Head> \
+  <body> \
+    <div class="navbar navbar-fixed-top"> \
+      <div class="navbar-header"> \
+        <div class="navbar-brand"> \
+          <a href="/">Example Site</a> \
+        </div> \
+      </div> \
+      <div class="collapse navbar-collapse"> \
+        <ul class="nav navbar-nav navbar-left"> \
+          <li><a href="about.html">关于我们</a></li> \
+        </ul> \
+      </div> \
+    </div> \
+\
+    <center> \
+      <div class="article-container"> \
+        <div class="article"> \
+          <h1>It Works!</h1> \
+          <p>如果你能正确看到这段文字，说明浏览器工作正常。</p>\
+        </div> \
+      </div> \
+    </center> \
+\
+    <div class="footer-bottom"> \
+      <center> \
+      </center> \
+    </div> \
+  </body> \
+</html>";
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 /*		const char response[] = 
