@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
-            filesize = ftell(fp);
+            int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
             assert(fread(index, 1, filesize, fp) > 0);
         }
