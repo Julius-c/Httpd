@@ -16,7 +16,7 @@
 
 int servfd = -1;
 int servport = 8000; //default
-#define BUFSIZE 1000
+#define BUFSIZE 100
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
@@ -68,7 +68,7 @@ void server(int servport, char *dir) {
         sscanf(request, "%s", method);
         sscanf(request, "%*s%s", url);
         char *response = parseurl(url, dir);
-        printf("%s %s %s\n", method, url, response);
+        printf("%s %s %s\n %s\n", method, url, response, request);
         
 		const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
