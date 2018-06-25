@@ -15,7 +15,7 @@ int servfd = -1;
 int servport = 8000; //default
 
 void sigint_handler(int signum) {
-    printf("Keyboard Interrupt Detected, Close Server\n");
+    printf("\nKeyboard Interrupt Detected, Close Server\n");
     close(servfd);
     exit(EXIT_SUCCESS);
 }
@@ -34,7 +34,7 @@ void server(int servport, char *dir) {
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-        const char response[] = "Hello World!";
+        const char response[] = "Hello World!\n";
         int len = write(conn, response, sizeof(response));
         len ++;
         close(conn);
