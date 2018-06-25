@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -7,11 +8,11 @@
 #include <dirent.h>
 #include <signal.h>
 #include <pthread.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 
 int servfd = -1;
 int servport = 8000; //default
