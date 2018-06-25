@@ -29,8 +29,7 @@ void sigint_handler(int signum) {
 int is_exist(char *token, char *dir) {
     DIR *site = NULL;
     struct dirent *entry;
-            printf("%s\n", dir);
-
+    if(!site) closedir(site);
     assert((site = opendir(dir)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, ".") == 0)
@@ -43,6 +42,7 @@ int is_exist(char *token, char *dir) {
             return is_exist(token, entry->d_name);
         }
     }
+    if(!site) closedir(site);
     return false;
 }
 
