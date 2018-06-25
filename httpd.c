@@ -9,6 +9,7 @@ int port = 8000; //default
 void server(int port, char *dir) {
    DIR *site = NULL;
    struct dirent *entry;
+   char path[128];
    sscanf(dir, "./%s", path);
    assert((site = opendir(path)) != NULL);
 }
