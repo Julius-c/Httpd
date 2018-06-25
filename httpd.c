@@ -16,7 +16,6 @@
 
 int servfd = -1;
 int servport = 8000; //default
-static char html[1 << 20];
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
