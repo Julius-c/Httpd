@@ -15,7 +15,7 @@ int servfd = -1;
 int servport = 8000; //default
 
 void sigint_handler(int signum) {
-    printf("\nKeyboard Interrupt Detected, Close Server\n");
+    printf("\nReceive Keyboard Interrupt, Close Server.\n");
     close(servfd);
     exit(EXIT_SUCCESS);
 }
@@ -33,28 +33,34 @@ void server(int servport, char *dir) {
     struct sockaddr_in client_addr;
     socklen_t length = sizeof(client_addr);
     int conn = -1;
-    while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-        const char response[] = 
-            "HTTP/1.1 200 OK\r\n"
-            "Content-Length: 13\r\n"
-            "\r\n"
-            "Hello World!\n";
-        assert(write(conn, response, sizeof(response)) == sizeof(response));
-        close(conn);
-    }
-
     DIR *site = NULL;
     struct dirent *entry;
+    char buff[128] = get_current_dir_name();
+    printf("%s\n", buff);
     char path[128];
     sscanf(dir, "./%s", path);
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
-        printf("%s\n", entry->d_name);
+        if(strcmp(entry->d_name, "index.html") == 0) {
+            int fd = open("index.html", "w");
+        }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
                 || strcmp(entry->d_name, "..") == 0)
                 continue;
         }
+    }
+    const char response[] = 
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Length: 13\r\n"
+        "\r\n"
+        "Hello World!\n";
+
+
+
+    while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
+           assert(write(conn, response, sizeof(response)) == sizeof(response));
+        close(conn);
     }
 }
 
