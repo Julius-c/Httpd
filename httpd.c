@@ -16,7 +16,7 @@
 
 int servfd = -1;
 int servport = 8000; //default
-static char index[1 << 20];
+static char html[1 << 20];
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
             fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
-            assert(fread(index, 1, filesize, fp) > 0);
+            assert(fread(html, 1, filesize, fp) > 0);
         }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
