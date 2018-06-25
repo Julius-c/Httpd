@@ -54,6 +54,7 @@ void server(int servport, char *dir) {
             <h1> OSMINILAB </h1> \
             <font size = 2> \
             Welcome to HTTPD! \
+            <br></br> \
             </font> \
             </center> \
             </body> \
