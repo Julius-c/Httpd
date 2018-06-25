@@ -49,7 +49,6 @@ void server(int servport, char *dir) {
             <title>Hello</title> \
             </head> \
             <body> \
-            <body bgcolor = \"yellow\"> \
             <center> \
             <hr> \
             <h1> OSMINILAB </h1> \
