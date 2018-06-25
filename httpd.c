@@ -32,9 +32,9 @@ int main(int argc, char *argv[]) {
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
             for(int i = 0; i < NR_CMD; i ++)
-                printf("\033[1;36m%s\033[0m \033[1m->\033[0m \033[45m%s\033[0m\n", cmd_table[i].name, cmd_table[i].description);
+                printf("\033[1;36m%s\033[0m \033[1m->\033[0m \033[1;45m%s\033[0m\n", cmd_table[i].name, cmd_table[i].description);
         }else{
-            printf("\033[1mUnknown or Incomplete command '%s'\033[0m\n", argv[1]);
+            printf("\033[1;31mUnknown or Incomplete command '%s'\033[0m\n", argv[1]);
         }
     }
     return 0;
