@@ -27,6 +27,33 @@ void sigint_handler(int signum) {
 }
 
 char *parseurl(char *url, char *dir) {
+   return response;
+}
+
+void server(int servport, char *dir) {
+    servfd = socket(AF_INET, SOCK_STREAM, 0);
+    signal(SIGINT, sigint_handler);
+    struct sockaddr_in servaddr;
+    memset(&servaddr, 0, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(servport);
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    assert(bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != -1);
+
+    struct sockaddr_in client_addr;
+    socklen_t length = sizeof(client_addr);
+    int conn = -1;
+    
+    listen(servfd, 50);
+
+    while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
+        char request[BUFSIZE];
+        int recb = recv(conn, request, BUFSIZE, 0);
+        request[recb] = '\0';
+        char method[BUFSIZE], url[BUFSIZE];
+        sscanf(request, "%s %s", method, url);
+        printf("%s %s\n", method, url);
+//       char *response = parseurl(url, dir);
     char response[BUFSIZE];
     char pwd[BUFSIZE];
     if(strcmp(url, "/") == 0)
@@ -62,34 +89,7 @@ char *parseurl(char *url, char *dir) {
     else {
         read(fd, response, BUFSIZE);
     }
-    return response;
-}
-
-void server(int servport, char *dir) {
-    servfd = socket(AF_INET, SOCK_STREAM, 0);
-    signal(SIGINT, sigint_handler);
-    struct sockaddr_in servaddr;
-    memset(&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(servport);
-    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    assert(bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != -1);
-
-    struct sockaddr_in client_addr;
-    socklen_t length = sizeof(client_addr);
-    int conn = -1;
-    
-    listen(servfd, 50);
-
-    while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-        char request[BUFSIZE];
-        int recb = recv(conn, request, BUFSIZE, 0);
-        request[recb] = '\0';
-        char method[BUFSIZE], url[BUFSIZE];
-        sscanf(request, "%s %s", method, url);
-        printf("%s %s\n", method, url);
-        char *response = parseurl(url, dir);
-
+ 
 		assert( write(conn, response, sizeof(response)) > 0);
 		close(conn);
     }
