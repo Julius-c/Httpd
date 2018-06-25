@@ -34,9 +34,11 @@ void server(int servport, char *dir) {
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-        const char response[] = "Hello World!\n";
-        int len = write(conn, response, sizeof(response));
-        len ++;
+        const char response[] = 
+            "HTTP/1.1 200 OK\r\n"
+            "Content-Length: 11\r\n"
+            "Hello World!\n";
+        write(conn, response, sizeof(response));
         close(conn);
     }
 
