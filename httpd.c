@@ -47,6 +47,7 @@ void server(int servport, char *dir) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             printf("%s\n", pwd);
             FILE *fp = fopen(pwd, "r");
+            fseek(fp, 0L, SEEK_END);
             int filesize = ftell(fp);
             printf("%d\n", filesize);
             }
