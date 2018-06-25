@@ -93,8 +93,8 @@ void server(int servport, char *dir) {
 			    "Content-Length: %d\r\n"
 			    "\r\n", size);
         }
- 		assert( write(conn, response, strlen(response)) > 0);
-        assert( write(conn, html, size) > 0);
+ 		assert( send(conn, response, strlen(response), 0) > 0);
+        assert( send(conn, html, size, 0) > 0);
 		close(conn);
     }
 }
