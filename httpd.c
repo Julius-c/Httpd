@@ -57,7 +57,6 @@ void server(int servport, char *dir) {
             Welcome to HTTPD! \
             </br> \
             <br> \
-            <font size = 5> \
             161240003 CHEN Cheng \
             </font> \
             </br> \
