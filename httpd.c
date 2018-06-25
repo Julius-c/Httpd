@@ -11,7 +11,7 @@ void server(int port, char *dir) {
    struct dirent *entry;
    char path[512];
    dir[strlen(dir)] = '\0';
-   sscanf(dir, "%[1-9a-z]", path);
+   sscanf(dir, "%[a-z]", path);
    printf("%s %s\n", dir, path);
 }
 
