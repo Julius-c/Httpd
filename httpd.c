@@ -25,12 +25,12 @@ void server(int servport, char *dir) {
     signal(SIGINT, sigint_handler);
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_faminy = AF_INET;
+    servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(servport);
     servaddr.sin_addr.s_addr = htonl(INADD_ANY);
     bind(servfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(servfd, 50);
-    struct sockaddr_in cliend_addr;
+    struct sockaddr_in client_addr;
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
