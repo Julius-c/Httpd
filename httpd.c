@@ -44,8 +44,7 @@ void server(int servport, char *dir) {
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
-            strcat(pwd, path);
-            strcat(pwd, "/index.html");
+            sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             printf("%s\n", pwd);
             int fd = open("index.html", O_RDONLY);
             }
