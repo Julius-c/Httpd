@@ -16,7 +16,9 @@
 
 int servfd = -1;
 int servport = 8000; //default
-#define BUFSIZE 1000
+#define BUFSIZE 1<<20
+#define true 1
+#define false 0
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
@@ -24,25 +26,32 @@ void sigint_handler(int signum) {
     exit(EXIT_SUCCESS);
 }
 
-char *parseurl(char *url, char *dir) {
+int is_exist(char *token, char *dir) {
     DIR *site = NULL;
     struct dirent *entry;
-    char *pwd = get_current_dir_name();
-    char path[128];
-    sscanf(dir, "./%s", path);
-    assert((site = opendir(path)) != NULL);
+    assert((site = opendir(dir)) != NULL);
     while((entry = readdir(site)) != NULL) {
-        if(entry->d_type & DT_DIR) {
-            if(strcmp(entry->d_name, ".") == 0
-                || strcmp(entry->d_name, "..") == 0)
-                continue;
+        if(strcmp(entry->name, ".") == 0)
+            continue;
+        if(strcmp(token, entry->name) == 0) {
+            if( !(entry->d_type & DT_DIR) )
+                return true;
+            else
+                return is_exist(token, entry->d_name);
         }
     }
+    return false;
+}
+
+char *parseurl(char *url, char *dir) {
+    char *pwd = get_current_dir_name();
+    char response[BUFSIZE];
+
     char *token = strtok(url, "/");
     while(token != NULL) {
-        printf("%s\n", token);
         token = strtok(NULL, "/");
     }
+    assert(token == NULL);
     return token;
 }
 
@@ -68,8 +77,8 @@ void server(int servport, char *dir) {
         request[recb] = '\0';
         char method[BUFSIZE], url[BUFSIZE];
         sscanf(request, "%s %s", method, url);
+        printf("%s %s\n", method, url);
         char *response = parseurl(url, dir);
-//        printf("%s %s\n", method, url);
 
         const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
@@ -120,7 +129,9 @@ int main(int argc, char *argv[]) {
         if( (strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) && argc == 4) {
             servport = atoi(argv[2]);
-            server(servport, argv[3]);
+            char dir[BUFSIZE];
+            sscanf(argv[3], "./%s", dir);
+            server(servport, dir);
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
             for(int i = 0; i < NR_CMD; i ++)
