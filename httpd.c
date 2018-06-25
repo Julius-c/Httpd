@@ -50,14 +50,10 @@ void server(int servport, char *dir) {
             </head> \
             <body> \
             <center> \
-            <hr> \
-            <br> \
             <h1> OSMINILAB </h1> \
             <font size = 2> \
             Welcome to HTTPD! \
             </font> \
-            </br> \
-            </hr> \
             </center> \
             </body> \
             </html>\r\n";
