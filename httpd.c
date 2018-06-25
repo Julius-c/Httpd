@@ -46,7 +46,9 @@ void server(int servport, char *dir) {
         if(strcmp(entry->d_name, "index.html") == 0) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             printf("%s\n", pwd);
-            int fd = open("index.html", O_RDONLY);
+            FILE *fp = fopen(pwd, "r");
+            int filesize = ftell(fp);
+            printf("%d\n", filesize);
             }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
