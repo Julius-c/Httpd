@@ -37,7 +37,7 @@ void server(int servport, char *dir) {
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     
-    listen(servfd, 51);
+    listen(servfd, 50);
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
@@ -53,7 +53,7 @@ void server(int servport, char *dir) {
             <hr> \
             <br> \
             <h1> OSMINILAB </h1> \
-            <font size = 5> \
+            <font size = 2> \
             Welcome to HTTPD! \
             </font> \
             </br> \
