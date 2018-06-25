@@ -53,8 +53,9 @@ void server(int servport, char *dir) {
             <hr> \
             <br> \
             <h1> OSMINILAB </h1> \
-            <font size = 2> \
-            Welcome to HTTPD! \
+            <font size = 20> \
+            Welcome to HTTPD!\n \
+            161240003 陈诚 \
             </font> \
             </br> \
             </hr> \
