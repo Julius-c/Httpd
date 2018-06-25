@@ -36,7 +36,7 @@ void server(int servport, char *dir) {
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
         const char response[] = 
             "HTTP/1.1 200 OK\r\n"
-            "Content-Length: 11\r\n"
+            "Content-Length: 13\r\n"
             "\r\n"
             "Hello World!\n";
         assert(write(conn, response, sizeof(response)) == sizeof(response));
