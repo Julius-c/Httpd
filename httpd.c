@@ -29,7 +29,9 @@ void sigint_handler(int signum) {
 char *parseurl(char *url, char *dir) {
     char response[BUFSIZE];
     char pwd[BUFSIZE];
-    sprintf(pwd, "%s%s", dir, url);
+    if(strcmp(url, "/") == 0)
+        sprintf(pwd, "%sindex.html", dir);
+    else sprintf(pwd, "%s%s", dir, url);
     printf("%s\n", pwd);
     int fd = open(pwd, O_RDONLY);
     if(fd == -1)
