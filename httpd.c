@@ -37,7 +37,7 @@ void server(int servport, char *dir) {
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     
-    listen(servfd, 50);
+    listen(servfd, 51);
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
