@@ -12,7 +12,7 @@ void server(int port, char *dir) {
    char path[128];
    sscanf(dir, "./%s", path);
    assert((site = opendir(path)) != NULL);
-   while(entry = readdir(site) != NULL) {
+   while((entry = readdir(site)) != NULL) {
        printf("%s\n", entry->d_name);
    }
 }
