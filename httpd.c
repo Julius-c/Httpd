@@ -11,7 +11,7 @@ void server(int port, char *dir) {
 
 static struct{
     char *name;
-    char *discription;
+    char *description;
 } cmd_table [] = {
     { "--help or -h", "Display informations about all supported commands." },
     { "--port or -p", "Set up the listening port." }
