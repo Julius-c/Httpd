@@ -58,6 +58,7 @@ void server(int servport, char *dir) {
             <br /> \
             161240003 CHEN Cheng \
             </font> \
+            </hr> \
             </center> \
             </body> \
             </html>\r\n";
