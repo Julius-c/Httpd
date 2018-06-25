@@ -42,7 +42,7 @@ void server(int servport, char *dir) {
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
 		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
-			"Content-Length: 200\r\n"
+			"Content-Length: 300\r\n"
 			"\r\n"
 			"<html> \
             <head> \
@@ -50,10 +50,14 @@ void server(int servport, char *dir) {
             </head> \
             <body> \
             <center> \
+            <hr> \
+            <br> \
             <h1> OSMINILAB </h1> \
             <font size = 2> \
             Welcome to HTTPD! \
             </font> \
+            </br> \
+            </hr> \
             </center> \
             </body> \
             </html>\r\n";
