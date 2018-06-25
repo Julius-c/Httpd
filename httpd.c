@@ -16,7 +16,7 @@
 
 int servfd = -1;
 int servport = 8000; //default
-#define BUFSIZE 100
+#define BUFSIZE 1000
 
 void sigint_handler(int signum) {
     printf("\nReceive Keyboard Interrupt, Close Server.\n");
@@ -38,8 +38,11 @@ char *parseurl(char *url, char *dir) {
                 continue;
         }
     }
-
-    char *token = strtok(url, "/");
+    char *token = strtok(url, " ");
+    while(token != NULL) {
+        printf("%s\n", token);
+        token = strtok(url, "/");
+    }
     return token;
 }
 
@@ -63,13 +66,12 @@ void server(int servport, char *dir) {
         char request[BUFSIZE];
         int recb = recv(conn, request, BUFSIZE, 0);
         request[recb] = '\0';
-        char method[BUFSIZE], url[BUFSIZE], pro[BUFSIZE];
-        sscanf(request, "%s %s %s", method, url, pro);
-        char *response = parseurl(url, dir);
-        printf("%s %s %s\n", method, url, pro);
-        printf("%s\n %s\n", response, request);
-        
-		const char respe[] = 
+        char method[BUFSIZE], url[BUFSIZE];
+        sscanf(request, "%s %s", method, url);
+//        char *response = parseurl(url, dir);
+//        printf("%s %s\n", method, url);
+
+        const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 350\r\n"
 			"\r\n"
