@@ -24,6 +24,26 @@ void sigint_handler(int signum) {
     exit(EXIT_SUCCESS);
 }
 
+char *parseurl(char *url, char *dir) {
+/*    DIR *site = NULL;
+    struct dirent *entry;
+    char *pwd = get_current_dir_name();
+    char path[128];
+    sscanf(dir, "./%s", path);
+    assert((site = opendir(path)) != NULL);
+    while((entry = readdir(site)) != NULL) {
+        if(entry->d_type & DT_DIR) {
+            if(strcmp(entry->d_name, ".") == 0
+                || strcmp(entry->d_name, "..") == 0)
+                continue;
+        }
+    }
+
+*/
+    char *token = strtok(url, '/');
+    return token;
+}
+
 void server(int servport, char *dir) {
     servfd = socket(AF_INET, SOCK_STREAM, 0);
     signal(SIGINT, sigint_handler);
@@ -47,9 +67,10 @@ void server(int servport, char *dir) {
         char method[BUFSIZE], url[BUFSIZE];
         sscanf(request, "%s", method);
         sscanf(request, "%*s%s", url);
-        printf("%s %s\n", method, url);
-
-		const char response[] = 
+        char *response = parseurl(url, dir);
+        printf("%s %s %s\n", method, url, response);
+        
+		const char respe[] = 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 350\r\n"
 			"\r\n"
@@ -73,7 +94,7 @@ void server(int servport, char *dir) {
             </html>\r\n";
             
 
-		assert( write(conn, response, sizeof(response)) > 0);
+		assert( write(conn, respe, sizeof(respe)) > 0);
 		close(conn);
     }
 }
@@ -94,20 +115,6 @@ int main(int argc, char *argv[]) {
         exit(EXIT_SUCCESS);
     }
     
-    DIR *site = NULL;
-    struct dirent *entry;
-//    char *pwd = get_current_dir_name();
-    char path[128];
-    sscanf(argv[3], "./%s", path);
-    assert((site = opendir(path)) != NULL);
-    while((entry = readdir(site)) != NULL) {
-        if(entry->d_type & DT_DIR) {
-            if(strcmp(entry->d_name, ".") == 0
-                || strcmp(entry->d_name, "..") == 0)
-                continue;
-        }
-    }
-
     if(argc >= 2) {
         if( (strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) && argc == 4) {
