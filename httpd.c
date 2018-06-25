@@ -46,14 +46,14 @@ void server(int servport, char *dir) {
     static char index[1 << 20];
     int filesize;
     while((entry = readdir(site)) != NULL) {
-    /*    if(strcmp(entry->d_name, "index.html") == 0) {
+        if(strcmp(entry->d_name, "index.html") == 0) {
             sprintf(pwd, "%s/%s/%s", pwd, path, entry->d_name);
             FILE *fp = fopen(pwd, "r");
             fseek(fp, 0L, SEEK_END);
             filesize = ftell(fp);
             fseek(fp, 0L, SEEK_SET);
             assert(fread(index, 1, filesize, fp) > 0);
-        }*/
+        }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
                 || strcmp(entry->d_name, "..") == 0)
