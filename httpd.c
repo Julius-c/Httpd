@@ -49,18 +49,17 @@ void server(int servport, char *dir) {
             <title>Hello World</title> \
             </head> \
             <body> \
+            <body bgcolor = \"yellow\"> \
             <center> \
             <hr> \
-            <br> \
+            <br></br> \
             <h1> OSMINILAB </h1> \
+            <br></br> \
             <font size = 5> \
             Welcome to HTTPD! \
-            </br> \
-            <br> \
+            <br></br> \
             161240003 CHEN Cheng \
             </font> \
-            </br> \
-            </hr> \
             </center> \
             </body> \
             </html>\r\n";
