@@ -38,16 +38,18 @@ void server(int servport, char *dir) {
     int conn = -1;
     DIR *site = NULL;
     struct dirent *entry;
-    char* buff = get_current_dir_name();
+    char *pwd = get_current_dir_name();
     printf("%s\n", buff);
     char path[128];
     sscanf(dir, "./%s", path);
     assert((site = opendir(path)) != NULL);
     while((entry = readdir(site)) != NULL) {
         if(strcmp(entry->d_name, "index.html") == 0) {
+            strcat(pwd, path);
+            strcat(pwd, "/index.html");
+            printf("%s\n", pwd);
             int fd = open("index.html", O_RDONLY);
-            printf("%d\n", fd);
-        }
+            }
         if(entry->d_type & DT_DIR) {
             if(strcmp(entry->d_name, ".") == 0
                 || strcmp(entry->d_name, "..") == 0)
