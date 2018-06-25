@@ -41,14 +41,14 @@ void server(int servport, char *dir) {
     listen(servfd, 50);
 //    static char response[1 << 20];
 //    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n%s\r\n", filesize, index);
-//    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
+    sprintf(response, "HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\nHello World!\r\n");
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
-		const char response[] = 
+/*		const char response[] = 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 11\r\n"
 			"\r\n"
-			"Fuck You Elton\n";
+			"Fuck You Elton\n";*/
 
 		int len = write(conn, response, sizeof(response));
 		close(conn);
