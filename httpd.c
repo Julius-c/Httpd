@@ -45,14 +45,15 @@ int is_exist(char *token, char *dir) {
 
 char *parseurl(char *url, char *dir) {
     char *pwd = get_current_dir_name();
-    char response[BUFSIZE];
+    char response[BUFSIZE], path[BUFSIZE];
 
     char *token = strtok(url, "/");
     while(token != NULL) {
-        printf("%s\n", token);
-        token = strtok(NULL, "/");
+        path = strtok(url, "/");
+        if( path == NULL) break;
+        token = path;
     }
-    assert(token == NULL);
+    printf("%s\n", token);
     return token;
 }
 
