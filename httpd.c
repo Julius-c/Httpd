@@ -88,6 +88,7 @@ void server(int servport, char *dir) {
     }
     else {
         int size = lseek(fd, 0, SEEK_END);
+        lseek(fd, 0, SEEK_SET);
         read(fd, response, size);
         sprintf(response,
                 "HTTP/1.1 200 OK\r\n"
