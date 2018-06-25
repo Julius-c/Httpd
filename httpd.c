@@ -52,12 +52,10 @@ void server(int servport, char *dir) {
             <body bgcolor = \"yellow\"> \
             <center> \
             <hr> \
-            <br></br> \
             <h1> OSMINILAB </h1> \
-            <br></br> \
             <font size = 5> \
             Welcome to HTTPD! \
-            <br></br> \
+            <br /> \
             161240003 CHEN Cheng \
             </font> \
             </center> \
