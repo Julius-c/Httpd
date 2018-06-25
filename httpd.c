@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -40,7 +39,7 @@ void server(int servport, char *dir) {
     socklen_t length = sizeof(client_addr);
     int conn = -1;
     
-    listen(servfd, 50);
+    assert(listen(servfd, 50) != -1);
 
     while((conn = accept(servfd, (struct sockaddr *)&client_addr, &length)) != -1) {
         char request[BUFSIZE];
@@ -57,9 +56,9 @@ void server(int servport, char *dir) {
             sprintf(pwd, "%s/index.html", dir);
         else sprintf(pwd, "%s%s", dir, url);
 
-        int size = 0;
+        int fsize = 0;
         int fd = open(pwd, O_RDONLY);
-        if(fd == -1) {
+        if(fd == -1) { //404
             sprintf(response, 
 			    "HTTP/1.1 200 OK\r\n"
 			    "Content-Length: 500\r\n"
@@ -85,17 +84,17 @@ void server(int servport, char *dir) {
                 </html>\r\n");
             }
         else {
-            size = lseek(fd, 0, SEEK_END);
+            fsize = lseek(fd, 0, SEEK_END);
             lseek(fd, 0, SEEK_SET);
-            assert(read(fd, html, size) == size);
+            assert(read(fd, html, fsize) == fsize);
             sprintf(response,
                 "HTTP/1.1 200 OK\r\n"
 			    "Content-Length: %d\r\n"
-			    "\r\n", size);
+			    "\r\n", fsize);
         }
  		assert( send(conn, response, strlen(response), 0) > 0);
-        if(size > 0)
-            assert( send(conn, html, size, 0) > 0);
+        if(fsize > 0)
+            assert( send(conn, html, fsize, 0) > 0);
 		close(conn);
     }
 }
