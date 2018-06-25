@@ -36,7 +36,7 @@ char *parseurl(char *url, char *dir) {
     int fd = open(pwd, O_RDONLY);
     if(fd == -1) {
         printf("NO FILE\n");
-        response[] = 
+        sprintf(response, 
 			"HTTP/1.1 200 OK\r\n"
 			"Content-Length: 350\r\n"
 			"\r\n"
@@ -57,7 +57,7 @@ char *parseurl(char *url, char *dir) {
             </font> \
             </center> \
             </body> \
-            </html>\r\n";
+            </html>\r\n");
     }
     else {
         read(fd, response, BUFSIZE);
