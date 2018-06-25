@@ -46,7 +46,7 @@ void server(int servport, char *dir) {
 			"\r\n"
 			"<html> \
             <head> \
-            <title>Hello</title> \
+            <title>Hello World</title> \
             </head> \
             <body> \
             <center> \
@@ -56,6 +56,8 @@ void server(int servport, char *dir) {
             <font size = 5> \
             Welcome to HTTPD! \
             </font> \
+            </br> \
+            </hr> \
             </center> \
             </body> \
             </html>\r\n";
