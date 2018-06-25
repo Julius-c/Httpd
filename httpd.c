@@ -9,10 +9,8 @@ int port = 8000; //default
 void server(int port, char *dir) {
    DIR *site = NULL;
    struct dirent *entry;
-   char path[512];
-   dir[strlen(dir)] = '\0';
-   sscanf(dir, "%[a-z]", path);
-   printf("%s %s\n", dir, path);
+   sscanf(dir, "./%s", path);
+   assert((site = opendir(path)) != NULL);
 }
 
 static struct{
@@ -34,10 +32,7 @@ int main(int argc, char *argv[]) {
         if( (strcmp(argv[1], "-p") == 0 ||
             strcmp(argv[1], "--port") == 0) && argc == 4) {
             port = atoi(argv[2]);
-            char dir[512];
-            strcpy(dir, argv[3]);
-            printf("%s\n", dir);
-            server(port, dir);
+            server(port, argv[3]);
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
             for(int i = 0; i < NR_CMD; i ++)
