@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
             port = atoi(argv[2]);
             char dir[512];
             strcpy(dir, argv[3]);
+            printf("%s\n", dir);
             server(port, dir);
         }else if( (strcmp(argv[1], "-h") == 0 ||
                   strcmp(argv[1], "--help") == 0) && argc == 2) {
