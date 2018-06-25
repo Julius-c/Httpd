@@ -37,6 +37,7 @@ void server(int servport, char *dir) {
         const char response[] = 
             "HTTP/1.1 200 OK\r\n"
             "Content-Length: 11\r\n"
+            "\r\n"
             "Hello World!\n";
         assert(write(conn, response, sizeof(response)) == sizeof(response));
         close(conn);
